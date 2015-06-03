@@ -179,6 +179,8 @@ namespace LiteMate
 
             Process.Start(_fileName);
 
+            RefreshNames();
+
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
@@ -196,6 +198,8 @@ namespace LiteMate
                 return;
 
             Delete(selectedName);
+
+            RefreshNames();
         }
 
 
