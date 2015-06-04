@@ -210,6 +210,14 @@ namespace LiteMate
             if (name == "")
                 return;
 
+            if ( File.Exists( GetFullPathName( name ) ) )
+            {
+                if ( MessageBox.Show("配置存在, 是否覆盖?","同名配置", MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes )
+                {
+                    return;
+                }
+            }
+
             Clone(selectedName, name);
 
             RefreshNames();
@@ -231,6 +239,27 @@ namespace LiteMate
         private void btnSetPath_Click(object sender, EventArgs e)
         {
             SetAppFileName();
+        }
+
+        private void btnSyncToCurr_Click(object sender, EventArgs e)
+        {
+
+            var selectedName = GetSelectedName();
+
+            if (selectedName == "")
+                return;
+
+            var msg = string.Format("确认同步当前配置到{0}", selectedName);
+
+            if (MessageBox.Show( msg, "同步配置", MessageBoxButtons.YesNo) != System.Windows.Forms.DialogResult.Yes)
+            {
+                return;
+            }
+
+
+            Clone("liteide", selectedName);
+
+            RefreshNames();
         }
 
     }
